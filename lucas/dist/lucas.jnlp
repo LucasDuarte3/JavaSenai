@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="lucas.jnlp">
+  <information>
+    <title>lucas</title>
+    <vendor>Aluno Matutino</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib\mysql-connector-java-5.1.47.jar" size="1007502" download="eager" />
+    <jar href="lucas.jar" size="5315" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="lucas.Lucas"  name="lucas" />
+  <update check="always"/>
+</jnlp>
