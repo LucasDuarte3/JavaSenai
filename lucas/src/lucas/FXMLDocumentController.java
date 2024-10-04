@@ -5,14 +5,12 @@
 package lucas;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -21,120 +19,91 @@ import javafx.scene.control.TextField;
  */
 public class FXMLDocumentController implements Initializable {
     
-     @FXML
-    private ComboBox<String> comboBoxPartida;
     @FXML
-    private ComboBox<String> comboBoxDestino;
+    private ComboBox<String> comboBoxPartida; // Assegure-se de que este campo esteja definido no FXML
     @FXML
-    private TextField textFieldDistancia;
+    private ComboBox<String> comboBoxDestino; // Assegure-se de que este campo esteja definido no FXML
     @FXML
-    private TextField textFieldLitros;
-
-    private Map<String, Map<String, Integer>> distancias;
-    private final double consumo = 10.0; // 10 km/l
+    private TextField textFieldDistancia; // Assegure-se de que este campo esteja definido no FXML
+    @FXML
+    private TextField textFieldLitros; // Assegure-se de que este campo esteja definido no FXML
+    
+    private List<Backend> cidades;
+    private final double consumo = 10.0; // Consumo de combustível em km/litro, ajuste conforme necessário
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicializando cidades e distâncias
-    distancias = new HashMap<>();
-
-    Map<String, Integer> distanciasSaoPaulo  = new HashMap<>();
-    distanciasSaoPaulo.put("Rio de Janeiro", 430);
-    distanciasSaoPaulo.put("Belo Horizonte", 586);
-    distanciasSaoPaulo.put("Curitiba", 408);
-    distanciasSaoPaulo.put("Florianópolis", 700);
-    adicionarCidade("São Paulo", distanciasSaoPaulo);
-
-    Map<String, Integer> distanciasRioDeJaneiro = new HashMap<>();
-    distanciasRioDeJaneiro.put("São Paulo", 430);
-    distanciasRioDeJaneiro.put("Belo Horizonte", 360);
-    distanciasRioDeJaneiro.put("Brasília", 1170);
-    distanciasRioDeJaneiro.put("Salvador", 1500);
-    adicionarCidade("Rio de Janeiro", distanciasRioDeJaneiro);
-
-    Map<String, Integer> distanciasBeloHorizonte = new HashMap<>();
-    distanciasBeloHorizonte.put("São Paulo", 586);
-    distanciasBeloHorizonte.put("Rio de Janeiro", 360);
-    distanciasBeloHorizonte.put("Brasília", 740);
-    distanciasBeloHorizonte.put("Vitória", 520);
-    adicionarCidade("Belo Horizonte", distanciasBeloHorizonte);
-
-    Map<String, Integer> distanciasCuritiba = new HashMap<>();
-    distanciasCuritiba.put("São Paulo", 408);
-    distanciasCuritiba.put("Florianópolis", 301);
-    adicionarCidade("Curitiba", distanciasCuritiba);
-
-    Map<String, Integer> distanciasBrasilia = new HashMap<>();
-    distanciasBrasilia.put("Rio de Janeiro", 1170);
-    distanciasBrasilia.put("Belo Horizonte", 740);
-    distanciasBrasilia.put("Salvador", 1400);
-    adicionarCidade("Brasília", distanciasBrasilia);
-
-    Map<String, Integer> distanciasFlorianopolis = new HashMap<>();
-    distanciasFlorianopolis.put("Curitiba", 301);
-    distanciasFlorianopolis.put("São Paulo", 700);
-    distanciasFlorianopolis.put("Rio de Janeiro", 960);
-    adicionarCidade("Florianópolis", distanciasFlorianopolis);
-
-    Map<String, Integer> distanciasSalvador = new HashMap<>();
-    distanciasSalvador.put("Rio de Janeiro", 1500);
-    distanciasSalvador.put("Brasília", 1400);
-    adicionarCidade("Salvador", distanciasSalvador);
-
-    Map<String, Integer> distanciasVitoria = new HashMap<>();
-    distanciasVitoria.put("Belo Horizonte", 520);
-    distanciasVitoria.put("Rio de Janeiro", 520);
-    adicionarCidade("Vitória", distanciasVitoria);
-
-    Map<String, Integer> distanciasNatal = new HashMap<>();
-    distanciasNatal.put("Salvador", 570);
-    distanciasNatal.put("Brasília", 2200);
-    adicionarCidade("Natal", distanciasNatal);
-
-    Map<String, Integer> distanciasFortaleza = new HashMap<>();
-    distanciasFortaleza.put("Natal", 200);
-    distanciasFortaleza.put("Salvador", 1000);
-    adicionarCidade("Fortaleza", distanciasFortaleza);
-
-    // Adicionando cidades ao ComboBox
-    comboBoxPartida.getItems().addAll(distancias.keySet());
-    comboBoxDestino.getItems().addAll(distancias.keySet());
+        inicializarCidades();
+        comboBoxPartida.getItems().addAll(getNomesCidades());
+        comboBoxDestino.getItems().addAll(getNomesCidades());
     }
-
-    private void adicionarCidade(String cidade, Map<String, Integer> distanciasCidade) {
-        distancias.put(cidade, distanciasCidade);
+    private void inicializarCidades() {
+        cidades = new ArrayList<>();
+        cidades.add(new Backend("São Paulo", -23.5505, -46.6333));
+        cidades.add(new Backend("Rio de Janeiro", -22.9068, -43.1729));
+        cidades.add(new Backend("Belo Horizonte", -19.9191, -43.9378));
+        cidades.add(new Backend("Curitiba", -25.4284, -49.2733));
+        cidades.add(new Backend("Florianópolis", -27.5956, -48.5480));
+        cidades.add(new Backend("Brasília", -15.7801, -47.9292));
+        cidades.add(new Backend("Vitória", -20.3155, -40.3128));
+        cidades.add(new Backend("Salvador", -12.9714, -38.5014));
+        cidades.add(new Backend("Natal", -5.7945, -35.2110));
+        cidades.add(new Backend("Fortaleza", -3.7172, -38.5433));
     }
-
+    private List<String> getNomesCidades() {
+        List<String> nomes = new ArrayList<>();
+        for (Backend cidade : cidades) {
+            nomes.add(cidade.nome);
+        }
+        return nomes;
+    }
     @FXML
+    private double calcularDistancia(Backend cidade1, Backend cidade2) {
+        final int R = 6371; // Raio da Terra em km
+        double lat1 = Math.toRadians(cidade1.latitude);
+        double lon1 = Math.toRadians(cidade1.longitude);
+        double lat2 = Math.toRadians(cidade2.latitude);
+        double lon2 = Math.toRadians(cidade2.longitude);
+
+        double dlat = lat2 - lat1;
+        double dlon = lon2 - lon1;
+
+        double a = Math.sin(dlat / 2) * Math.sin(dlat / 2) +
+                   Math.cos(lat1) * Math.cos(lat2) *
+                   Math.sin(dlon / 2) * Math.sin(dlon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c; // Distância em km
+    }    
     public void calcular() {
         String partida = comboBoxPartida.getValue();
         String destino = comboBoxDestino.getValue();
 
-        System.out.println("Partida: " + partida + ", Destino: " + destino); // Para depuração
-
-        if (partida == null) {
-            textFieldDistancia.setText("Selecione a partida");
+        if (partida == null || destino == null) {
+            textFieldDistancia.setText("Selecione a partida e o destino");
             textFieldLitros.setText("");
-        } else if (destino == null) {
-            textFieldDistancia.setText("Selecione o destino");
-            textFieldLitros.setText("");
-        } else if (!distancias.containsKey(partida)) {
-            textFieldDistancia.setText("Partida inválida");
-            textFieldLitros.setText("");
-        } else {
-            Map<String, Integer> destinosPartida = distancias.get(partida);
-            if (!destinosPartida.containsKey(destino)) {
-                textFieldDistancia.setText("Destino inválido");
-                textFieldLitros.setText("");
-                System.out.println("Destino não encontrado na lista de destinos para " + partida);
-            } else {
-                int distancia = destinosPartida.get(destino);
-                double litros = distancia / consumo;
-
-                textFieldDistancia.setText(String.valueOf(distancia) + " km");
-                textFieldLitros.setText(String.valueOf(litros) + " litros");
-            }
+            return;
         }
-    }    
-    
+
+        Backend cidadePartida = cidades.stream().filter(c -> c.nome.equals(partida)).findFirst().orElse(null);
+        Backend cidadeDestino = cidades.stream().filter(c -> c.nome.equals(destino)).findFirst().orElse(null);
+
+        if (cidadePartida == null || cidadeDestino == null) {
+            textFieldDistancia.setText("Destino inválido");
+            textFieldLitros.setText("");
+            return;
+        }
+        
+        if (partida.equals(destino)) {
+            textFieldDistancia.setText("Partida e destino não podem ser iguais");
+            textFieldLitros.setText("");
+            return;
+        }
+
+        double distancia = calcularDistancia(cidadePartida, cidadeDestino);
+        double litros = distancia / consumo;
+
+        textFieldDistancia.setText(String.format("%.2f km", distancia));
+        textFieldLitros.setText(String.format("%.2f litros", litros));
+     }    
 }

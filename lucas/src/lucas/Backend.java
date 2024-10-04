@@ -1,48 +1,38 @@
 package lucas;
 
 public class Backend {
-    private String partida;
-    private String destino;
-    private float distancia;
-    private float litros;
+    String nome;
+    double latitude;
+    double longitude;
 
-    public Backend() {
-        this.partida = partida;
-        this.destino = destino;
-        this.distancia = distancia;
-        this.litros = litros;
+    public Backend(String nome, double latitude, double longitude) {
+        this.nome = nome;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public String getPartida() {
-        return partida;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPartida(String partida) {
-        this.partida = partida;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getDestino() {
-        return destino;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setDestino(String destino) {
-        this.destino = destino;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public float getDistancia() {
-        return distancia;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setDistancia(float distancia) {
-        this.distancia = distancia;
-    }
-
-    public float getLitros() {
-        return litros;
-    }
-
-    public void setLitros(float litros) {
-        this.litros = litros;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
     
 }
