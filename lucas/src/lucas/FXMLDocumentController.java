@@ -5,8 +5,11 @@
 package lucas;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,16 +23,16 @@ import javafx.scene.control.TextField;
 public class FXMLDocumentController implements Initializable {
     
     @FXML
-    private ComboBox<String> comboBoxPartida; // Assegure-se de que este campo esteja definido no FXML
+    private ComboBox<String> comboBoxPartida; 
     @FXML
-    private ComboBox<String> comboBoxDestino; // Assegure-se de que este campo esteja definido no FXML
+    private ComboBox<String> comboBoxDestino;
     @FXML
-    private TextField textFieldDistancia; // Assegure-se de que este campo esteja definido no FXML
+    private TextField textFieldDistancia; 
     @FXML
-    private TextField textFieldLitros; // Assegure-se de que este campo esteja definido no FXML
+    private TextField textFieldLitros; 
     
     private List<Backend> cidades;
-    private final double consumo = 10.0; // Consumo de combustível em km/litro, ajuste conforme necessário
+    private final double consumo = 10.0; // consumo do carro
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,7 +106,14 @@ public class FXMLDocumentController implements Initializable {
         double distancia = calcularDistancia(cidadePartida, cidadeDestino);
         double litros = distancia / consumo;
 
-        textFieldDistancia.setText(String.format("%.2f km", distancia));
-        textFieldLitros.setText(String.format("%.2f litros", litros));
+        // Formatação
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        symbols.setGroupingSeparator('.');
+        symbols.setDecimalSeparator(',');
+
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+        
+        textFieldDistancia.setText(decimalFormat.format(distancia) + " km");
+        textFieldLitros.setText(decimalFormat.format(litros) + " litros");
      }    
 }
